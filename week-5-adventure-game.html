@@ -1,0 +1,127 @@
+<html>
+
+	<head>
+		<title>Week 5 - Adventure Game</title>
+		<style>
+			
+			img {
+			
+				height: 200px;
+				width: 200px;
+				
+			}
+			
+			div#output {
+				width: 600px;
+				height: 200px;
+				background-color: #FFF8E7;
+				overflow-y: scroll;
+			}
+			
+		</style>
+	</head>
+	
+	<body>
+		<h1>Bad Game</h1>
+		<p id="on_page"> </p>
+		<button id="attack">Attack</button>
+		<button id="heal">Heal</button>
+		<button id="test">Image</button>
+		<img id="monsterImages" src="" />
+		<script src="player.js"></script>
+		<script src="monsters.js"></script>
+		<script src="loot.js"></script>
+		<script>
+		
+			var text = document.getElementById("on_page");
+			var imgTag = document.getElementById("MonsterImages");
+			
+			var game = {
+				user: gamer,
+				monsters: listOfMonsters
+			}
+			function random (maxNumber) {
+				return Math.floor(Math.random() * maxNumber); 
+			}
+			
+			var attack = document.getElementById("attack");
+			attack.addEventListener("click", skirmish);
+			
+			function skirmish (attack) {
+				var hero_dmg = random(game.user.dmg) + 1;
+				text.innerHTML = "Enemy Name: " + current_enemy + "<br>" + "Current Enemy HP: " + (current_hp_enemy -= hero_dmg) + "<br>" + "Current Hero HP: " + (current_hero_hp -= current_enemy_dmg);
+				if (current_hp_enemy <= 0) {
+					alert("Congrats you won!") + location.reload();
+				} else if (current_hero_hp <= 0) {
+					alert("You lose!") + location.reload();
+				}
+			}
+			
+			function potion (heal) {
+				count -= 1;
+				if (count == 0) {
+					alert("No more potions");
+				} else if (count >= 1) {
+					current_hero_hp += 25;
+				}
+			}
+			
+			function randomImg (test) {
+				var randomNumber = Math.floor(Math.random() * listOfMonsters.length);
+				var imgUrl = listOfMonsters[randomNumber].image;
+				monsterImages.src = imgUrl;
+			}
+			
+			function lootChance () {
+				var lootDrop = Math.random();
+				console.log(lootDrop);
+				var findableItems = [];
+				item.forEach( function (item){
+				
+				
+				if (item.chance > lootDrop) {
+					findableItems.push(item);
+				}
+				});
+				
+				var randomItemNumber = Math.floor(Math.random() * findableItems.length);
+				if(findableItems.length == 0) {
+					console.log("No Items Dropped!");
+				} else {
+					console.log(findableItems[randomItemNumber]);
+				}
+			}
+			
+			var outputtext = document.getElementById("output");
+			
+			function createOutput (message) {
+				outputtext.innerHTML = "<p>" + message + "</p>" + outputtext.innerHTML;
+			}
+				
+			var current_enemy_index = random(game.monsters.length);
+			console.log(current_enemy_index);
+			
+			var current_hero_hp = game.user.hp;
+			console.log("Current Hero HP: " + current_hero_hp);
+			
+			var current_enemy = game.monsters[current_enemy_index].name;
+			console.log("Enemy Name: " + current_enemy);
+			
+			var current_hp_enemy = game.monsters[current_enemy_index].hp;
+			console.log("Enemy HP: " + current_hp_enemy);
+			
+			var current_enemy_dmg = game.monsters[current_enemy_index].dmg
+			console.log("Enemy DMG: " + current_enemy_dmg);
+			
+			var heal = document.getElementById("heal");
+			
+			heal.addEventListener("click", potion);
+			
+			test.addEventListener("click", monsterImages);
+			
+			count = 4;
+			
+		</script>
+	</body>
+	
+</html>
